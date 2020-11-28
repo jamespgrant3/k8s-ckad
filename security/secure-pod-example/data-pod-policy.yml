@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: data-pod-policy
+spec:
+  # only allow traffic in from pods with the `approved: "true"` label
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          approved: "true"
+    ports:
+    - port: 80
+      protocol: TCP
+  # only allow traffic out to pods with the `approved: "true"` label
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          approved: "true"
+    ports:
+    - port: 80
+      protocol: TCP
+  policyTypes:
+  - Ingress
+  - Egress
+  # apply network policy to the data pod
+  podSelector:
+    matchLabels:
+      app: data
