@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: writer-pod
+spec:
+  containers:
+    - name: writer-pod
+      image: busybox
+      command: ["/bin/sh", "-c", "echo 'hello from the writer' > /mnt/storage/output.txt && sleep 3600"]
+      volumeMounts:
+      - mountPath: "/mnt/storage"
+        name: data-volume
+  volumes:
+  - name: data-volume
+    persistentVolumeClaim:
+      claimName: data-volume-claim
+
