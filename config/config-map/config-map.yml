@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-config-map
+data:
+  # creates one file, with all configs in it
+  config.cfg: |
+    firstName: James
+    lastName: Grant
